@@ -59,7 +59,7 @@ systemctl enable catalogue
 VALIDATE $? "Enable catloague service"
 systemctl start catalogue
 VALIDATE $? "Start catalogue service"
-cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>> $LOGFILE
+cp $PD/mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>> $LOGFILE
 VALIDATE $? "coying mongo repo file"
 dnf install mongodb-org-shell -y
 VALIDATE $? "ïnstall mongo shell"
