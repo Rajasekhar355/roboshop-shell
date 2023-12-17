@@ -11,7 +11,7 @@ echo "script stareted executing at $TIMESTAMP" &>> $LOGFILE
 
 
 VALIDATE() {
-    if [$1 -ne 0]
+    if [ $1 -ne 0 ]
     then
         echo "Error:: $2 .... FAILED"
         exit 1
@@ -20,7 +20,7 @@ VALIDATE() {
     fi
 }
 
-if [$ID -ne 0]
+if [ $ID -ne 0 ]
 then 
     echo "user is not root"
     exit 1
@@ -33,7 +33,7 @@ dnf module enable nodejs:18 -y &>>LOGFILE
 dnf install nodejs -y &>>LOGFILE
 
 id roboshop
-if [$? -ne 0]
+if [ $? -ne 0 ]
 then
     useradd roboshop
     VALIDATE $? "creating roboshop user"
