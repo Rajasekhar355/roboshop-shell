@@ -28,11 +28,11 @@ else
     echo "user is root"
 fi
 
-dnf module disable nodejs -y &>>LOGFILE
-dnf module enable nodejs:18 -y &>>LOGFILE
-dnf install nodejs -y &>>LOGFILE
+dnf module disable nodejs -y &>> $LOGFILE
+dnf module enable nodejs:18 -y &>> $LOGFILE
+dnf install nodejs -y &>> $LOGFILE
 
-id roboshop
+id roboshop &>> $LOGFILE
 if [ $? -ne 0 ]
 then
     useradd roboshop
@@ -41,7 +41,7 @@ else
     echo "user already added"
 fi
 
-mkdir /app
+mkdir -p /app
 VALIDATE $? "creating app directory"
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
 VALIDATE $? "Downloading catalogue code"
@@ -51,7 +51,7 @@ unzip -o /tmp/catalogue.zip
 VALIDATE $? "Unzip catalogue code"
 npm install 
 VALIDATE $? "Install npm"
-cp $PD/catalogue.service /etc/systemd/system/catalogue.service &>>LOGFILE
+cp $PD/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying catalogue service"
 systemctl daemon-reload
 VALIDATE $? "Daemon reload"
@@ -59,7 +59,7 @@ systemctl enable catalogue
 VALIDATE $? "Enable catloague service"
 systemctl start catalogue
 VALIDATE $? "Start catalogue service"
-cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>>LOGFILE
+cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>> $LOGFILE
 VALIDATE $? "coying mongo repo file"
 dnf install mongodb-org-shell -y
 VALIDATE $? "ïnstall mongo shell"
