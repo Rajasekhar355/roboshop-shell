@@ -4,7 +4,7 @@ ID=$(id -u)
 TIMESTAMP=$(date+%F-%H-%M-%S)
 LOGFILE="/temp/LOG_$TIMESTAMP.log"
 
-echo "Script Started.." &>>$LOGFILE
+echo "Script Started.." &>> $LOGFILE
 
 VALIDATE() {
     if [$1 -ne 0]
@@ -26,8 +26,8 @@ fi
 cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>>LOGFILE
 VALIDATE $? "Copying mongo file"
 dnf install mongodb-org -y
-VALIDATE $? "Installing MongoDB" &>>$LOGFILE
-systemctl enable  &>>$LOGFILE
-systemctl start mongod &>>$LOGFILE
+VALIDATE $? "Installing MongoDB" &>> $LOGFILE
+systemctl enable  &>> $LOGFILE
+systemctl start mongod &>> $LOGFILE
 sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongodb.conf &>>LOGFILE
-systemctl restart mongod &>>$LOGFILE
+systemctl restart mongod &>> $LOGFILE
