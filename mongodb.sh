@@ -1,13 +1,14 @@
 #!/bin/bash
 
 ID=$(id -u)
-TIMESTAMP=$(date+%F-%H-%M-%S)
-LOGFILE="/temp/LOG_$TIMESTAMP.log"
+
+TIMESTAMP=$(date +%F-%H-%M-%S)
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 echo "Script Started.." &>> $LOGFILE
 
 VALIDATE() {
-    if [$1 -ne 0]
+    if [ $1 -ne 0 ]
     then
         echo "Error:: $2 .... FAILED"
     else
@@ -15,7 +16,7 @@ VALIDATE() {
     fi
 }
 
-if [$ID -ne 0]
+if [ $ID -ne 0 ]
 then 
     echo "user is not root"
     exit 1

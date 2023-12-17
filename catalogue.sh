@@ -1,12 +1,14 @@
 #!/bin/bash
 
 ID=$(id -u)
-TIMESTAMP=$(date+%F-%H-%M-%S)
-LOGFILE="/temp/LOG_$TIMESTAMP.log"
 PD=$(pwd)
-MONGO_HOST=""
+MONGO_HOST="3.85.51.213"
 
-echo "Script Started.." &>>$LOGFILE
+TIMESTAMP=$(date +%F-%H-%M-%S)
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
+
+echo "script stareted executing at $TIMESTAMP" &>> $LOGFILE
+
 
 VALIDATE() {
     if [$1 -ne 0]
@@ -61,4 +63,4 @@ cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>>LOGFILE
 VALIDATE $? "coying mongo repo file"
 dnf install mongodb-org-shell -y
 VALIDATE $? "ïnstall mongo shell"
-mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+mongo --host $MONGO_HOST </app/schema/catalogue.js

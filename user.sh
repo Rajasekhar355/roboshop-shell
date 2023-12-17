@@ -1,8 +1,9 @@
 #!/bin/bash
 
 ID=$(id -u)
-TIMESTAMP=$(date+%F-%H-%M-%S)
-LOGFILE="/temp/LOG_$TIMESTAMP.log"
+
+TIMESTAMP=$(date +%F-%H-%M-%S)
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
 PD=$(pwd)
 MONGO_HOST=""
 

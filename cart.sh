@@ -1,15 +1,16 @@
 #!/bin/bash
 
 ID=$(id -u)
-TIMESTAMP=$(date+%F-%H-%M-%S)
-LOGFILE="/temp/LOG_$TIMESTAMP.log"
-PD=$(pwd)
-MONGO_HOST=""
 
-echo "Script Started.." &>>$LOGFILE
+TIMESTAMP=$(date +%F-%H-%M-%S)
+LOGFILE="/tmp/$0-$TIMESTAMP.log"
+
+PD=$(pwd)
+
+echo "Script Started.." &>> $LOGFILE
 
 VALIDATE() {
-    if [$1 -ne 0]
+    if [ $1 -ne 0 ]
     then
         echo "Error:: $2 .... FAILED"
         exit 1
@@ -18,7 +19,7 @@ VALIDATE() {
     fi
 }
 
-if [$ID -ne 0]
+if [ $ID -ne 0 ]
 then 
     echo "user is not root"
     exit 1
@@ -26,9 +27,9 @@ else
     echo "user is root"
 fi
 
-dnf module disable nodejs -y &>>LOGFILE
-dnf module enable nodejs:18 -y &>>LOGFILE
-dnf install nodejs -y &>>LOGFILE
+dnf module disable nodejs -y &>> $LOGFILE
+dnf module enable nodejs:18 -y &>> $LOGFILE
+dnf install nodejs -y &>> $LOGFILE
 
 id roboshop
 if [$? -ne 0]
@@ -49,7 +50,7 @@ unzip -o /tmp/cart.zip
 VALIDATE $? "Unzip cart code"
 npm install 
 VALIDATE $? "Install npm"
-cp $PD/cart.service /etc/systemd/system/cart.service &>>LOGFILE
+cp $PD/cart.service /etc/systemd/system/cart.service &>> $LOGFILE
 VALIDATE $? "Copying cart service"
 systemctl daemon-reload
 VALIDATE $? "Daemon reload"
