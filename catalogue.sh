@@ -2,7 +2,7 @@
 
 ID=$(id -u)
 PD=$(pwd)
-MONGO_HOST="3.85.51.213"
+MONGO_HOST="54.242.255.53"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
