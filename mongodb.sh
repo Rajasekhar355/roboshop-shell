@@ -24,11 +24,11 @@ else
     echo "user is root"
 fi
 
-cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>>LOGFILE
+cp mongo.repo /etc/yum.repos.d/mongodb-org-4.2.repo &>> $LOGFILE
 VALIDATE $? "Copying mongo file"
 dnf install mongodb-org -y
 VALIDATE $? "Installing MongoDB" &>> $LOGFILE
 systemctl enable  &>> $LOGFILE
 systemctl start mongod &>> $LOGFILE
-sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongodb.conf &>>LOGFILE
+sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongodb.conf &>> $LOGFILE
 systemctl restart mongod &>> $LOGFILE
