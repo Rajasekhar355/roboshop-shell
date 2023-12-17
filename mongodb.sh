@@ -30,5 +30,5 @@ dnf install mongodb-org -y
 VALIDATE $? "Installing MongoDB" &>> $LOGFILE
 systemctl enable  &>> $LOGFILE
 systemctl start mongod &>> $LOGFILE
-sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongodb.conf &>> $LOGFILE
+sed -i "s/127.0.0.1/0.0.0.0/g" /etc/mongod.conf &>> $LOGFILE
 systemctl restart mongod &>> $LOGFILE
